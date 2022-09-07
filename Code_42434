@@ -1,0 +1,207 @@
+#include<bits/stdc++.h>
+#include<string>
+using namespace std;
+
+class StringCalculator
+{
+    public:
+    vector<int> Akshay;                     
+    
+    // to print multiple negative numbers if present any
+    void display()
+    {
+        if(Akshay.size()>0)
+        {
+            cout<<"Negative Not Allowed - ";
+        }
+        for(int i=0;i<Akshay.size();i++)
+        {
+            cout<<Akshay[i]<<" ";
+        }
+    }
+    
+    
+    // to check if string(numbers) is changing delimiter   
+    bool check(string numbers)
+    {
+        string temp="//,\n";
+        for(int i=0;i<5;i++)
+        {
+            if(i!=2 && temp[i]!=numbers[i])
+            {
+                return false;
+            }
+            return true;
+        }
+    }
+    
+    // Addition of input string numbers
+    int add(string numbers)
+    {
+        int sum=0;                                                //Initializing o/p as 0
+        int n=numbers.length();
+        string temp="";
+        bool flag= check(numbers);                               // calling check to check if it changes Delimiters
+        
+        if(flag)                                                // if numbers changing delimiter then changing default delimiter
+        {
+            for(int i=5;i<n;i++)
+            {    
+                if(numbers[i]==numbers[2])
+                {
+                    int x=stoi(temp);
+                    try 
+                    {
+                        
+                        if(x>0 && x<=1000)
+                        {
+                            sum+= x;
+                        }
+                        else if(x<0)
+                        {
+                            throw x;
+                        }
+                    }
+                    catch (int x) 
+                    {
+                        Akshay.push_back(x);
+                    }
+                    temp="";
+                    
+                }
+                else if(numbers[i]>46 && numbers[i]<58)                  // checking if it is valid number to consider
+                {
+                    temp+=numbers[i];
+                }
+                else if(numbers[i]>96 && numbers[i]<123)                // checking if it is valid alphabet to consider
+                {
+                    temp+=to_string((int)numbers[i]-96);
+                }
+                else if(numbers[i+1]=='n' && numbers[i]==92)            // checking if there is  \n
+                {
+                    int x=stoi(temp);
+                    try 
+                    {
+                        
+                        if(x>0 && x<=1000)
+                        {
+                            sum+= x;
+                        }
+                        else if(x<0)
+                        {
+                            throw x;
+                        }
+                    }
+                    catch (int x) 
+                    {
+                        Akshay.push_back(x);
+                    }
+                    temp="";
+                    i++;
+                }
+                else if(numbers[i]=='-' && (numbers[i+1]>46 && numbers[i+1]<58))
+                {
+                    temp+=numbers[i];
+                }
+            
+            }
+        }
+        else                                                // using default Delimiters
+        {
+            for(int i=0;i<n;i++)
+            {    
+                if(numbers[i]==',')
+                {
+                    int x=stoi(temp);
+                    try 
+                    {
+                        
+                        if(x>0 && x<=1000)
+                        {
+                            sum+= x;
+                        }
+                        else if(x<0)
+                        {
+                            throw x;
+                        }
+                    }
+                    catch (int x) 
+                    {
+                        Akshay.push_back(x);
+                    }
+                    temp="";
+                    
+                }
+                else if(numbers[i]>46 && numbers[i]<58)       // checking if it is valid number to consider
+                {
+                    temp+=numbers[i];
+                }
+                else if(numbers[i]>96 && numbers[i]<123)      // checking if it is valid alphabet to consider
+                {
+                    temp+=to_string((int)numbers[i]-96);
+                }
+                else if(numbers[i+1]=='n' && numbers[i]==92)   // checking if there is  \n
+                {
+                    int x=stoi(temp);
+                    try 
+                    {
+                        
+                        if(x>0 && x<=1000)
+                        {
+                            sum+= x;
+                        }
+                        else if(x<0)
+                        {
+                            throw x;
+                        }
+                    }
+                    catch (int x) 
+                    {
+                        Akshay.push_back(x);
+                    }
+                    temp="";
+                    i++;
+                }
+                else if(numbers[i]=='-' && (numbers[i+1]>46 && numbers[i+1]<58))  //checking if it is negative number
+                {
+                    temp+=numbers[i];
+                }
+            }
+        }
+        if(temp.length()!=0 )
+        {
+            int x=stoi(temp);
+            try 
+            {
+                    
+                if(x>0 && x<=1000)
+                {
+                    sum+= x;
+                }
+                else if(x<0)
+                {
+                    throw x;
+                }
+            }
+            catch (int x) 
+            {
+                Akshay.push_back(x);
+            }
+        }
+        return sum;
+    }
+    
+    
+};
+
+int main()
+{
+    string numbers;
+    cin>>numbers;                           // taking string input
+    StringCalculator test;                  // creating an object for the above class
+    cout<<test.add(numbers)<<endl;           
+    test.display();                         // displaying any negative number if present any
+    return 0;
+}
+
+
